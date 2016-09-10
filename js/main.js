@@ -1,5 +1,10 @@
-var canvas, smoother, glasses, video, detector, ctx, fab, drawCanvas, faceCanvas, fabricCanvas, faceCtx;
+var canvas, smoother, glasses, video, detector, ctx, fab, drawCanvas, brush, faceCanvas, fabricCanvas, faceCtx;
 var SCALE_HEIGHT = 100;
+
+var colors = ["#00f"];
+
+var colorIndex = 0;
+
 window.onload = function() {
 	
 		smoother = new Smoother([0.9999999, 0.9999999, 0.999, 0.999], [0, 0, 0, 0]);
@@ -52,23 +57,65 @@ window.onload = function() {
 		fab = new fabric.Canvas('fabric', {
             isDrawingMode: false
         });
-        fab.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 150, left: 150 }));
+        fab.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 150, left: 150, opacity: 0.7 }));
         fab.renderAll();
+
+        console.log(fabric);
+       // fab.freeDrawingBrush = new fabric.PencilBrush(fab);
+
 
 	}
 
 	function createUI(){
 		var par = document.getElementById("ui");
-		createButton(par);
+		/*draw circle*/
+		createButton(par, function(){
+			fab.isDrawingMode = false;
+			fab.add(new fabric.Circle({ radius: 50, fill: colors[colorIndex], top: 300, left: 300 }));
+		});
+
+		/*draw rect*/
+		createButton(par, function(){
+			fab.isDrawingMode = false;
+			fab.add(new fabric.Rect({ width: 60, height: 70, fill: colors[colorIndex], top: 300, left: 300 }));
+		});
+
+		createButton(par, function(){
+			var f = fab.getActiveObject();
+			if(f){
+				console.log(f);
+				f.set("fill", colors[colorIndex]);
+				fab.renderAll();
+			}
+		});
+
+		createButton(par, function(){
+			fab.isDrawingMode = true;
+			console.log(fab);
+			fab.freeDrawingBrush = new fabric['PencilBrush'](fab);
+			fab.freeDrawingBrush.color = colors[colorIndex];
+      		fab.freeDrawingBrush.width = 10;
+
+		});
+
+		createButton(par, function(){
+			fab.isDrawingMode = false;
+		});
+
+		createButton(par, function(){
+			fab.isDrawingMode = false;
+			var f = fab.getActiveObject();
+			if(f){
+				f.remove();
+			}
+		});
 	}
 
-	function createButton(parent){
+	function createButton(parent, callback){
 		var d = document.createElement('div');
 		d.className = "ui-button";
 		parent.appendChild(d);
-		d.onclick = function(){
-			alert("dddd");
-		}
+		d.onclick = callback;
 	}
 
 	function drawFace(coords){
@@ -89,13 +136,13 @@ window.onload = function() {
 	          	if (!detector) {
 		      		var width = ~~(SCALE_HEIGHT * video.videoWidth / video.videoHeight); //~~removes anything to right of decimal
 					var height  =SCALE_HEIGHT;
-		      		detector = new objectdetect.detector(width, height, 1.1, objectdetect.frontalface);
+		      		detector = new objectdetect.detector(width, height, 1.8, objectdetect.frontalface);
 		      	}
           		
           		// Perform the actual detection:
 				var coords = detector.detect(video, 1);
 				if (coords[0]) {
-					console.log("drawing face");
+					//console.log("drawing face");
 					var coord = coords[0];
 					coord = smoother.smooth(coord);
 					
@@ -108,13 +155,13 @@ window.onload = function() {
 					coord[2] *= video.videoWidth / detector.canvas.width;
 					coord[3] *= video.videoHeight / detector.canvas.height;
 					
-					ctx.strokeRect(coord[0], coord[1], coord[2], coord[3]);
+					
 					ctx.drawImage(drawCanvas, coord[0], coord[1], coord[2], coord[3]);
 					// Display glasses overlay: 
-					glasses.style.left    = ~~(coord[0] + coord[2] * 1.0/8 + video.offsetLeft) + 'px';
-					glasses.style.top     = ~~(coord[1] + coord[3] * 0.8/8 + video.offsetTop) + 'px';
-					glasses.style.width   = ~~(coord[2] * 6/8) + 'px';
-					glasses.style.height  = ~~(coord[3] * 6/8) + 'px';
+					// glasses.style.left    = ~~(coord[0] + coord[2] * 1.0/8 + video.offsetLeft) + 'px';
+					// glasses.style.top     = ~~(coord[1] + coord[3] * 0.8/8 + video.offsetTop) + 'px';
+					// glasses.style.width   = ~~(coord[2] * 6/8) + 'px';
+					// glasses.style.height  = ~~(coord[3] * 6/8) + 'px';
 
 
 					glasses.style.opacity = 1;

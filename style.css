@@ -15,15 +15,22 @@
 .ui-button{
 	width: 80px;
 	height: 80px;
+	background-color: #fff;
+	border: 5px solid black;
+}
+
+.ui-button:hover{
+	width: 80px;
+	height: 80px;
+	border: 5px solid white;
 }
 
 #ui{
 	position: absolute;
 	top: 0px;
-	left: 0px;
+	left: -80px;
 	width: 200px;
 	height: 400px;
-	background-color: #f00;
 }
 
 video{
