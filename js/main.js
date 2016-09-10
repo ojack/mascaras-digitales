@@ -2,7 +2,7 @@ var canvas, smoother, glasses, video, detector, ctx, fab, drawCanvas, buttons, b
 var SCALE_HEIGHT = 60;
 
 var colors = ["#00f"];
-var col = "#f00";
+var col = "#99cc00";
 var colorIndex = 0;
 
 window.onload = function() {
@@ -16,13 +16,6 @@ window.onload = function() {
 		createUI();
 
 	
-		
-		
-		[].slice.call(document.getElementById('list').children).forEach(function(e) {
-			e.addEventListener('click', function() {
-				glasses.src = e.src;
-			}, false);
-		});
 	};
 
 	function update(jscolor) {
@@ -70,10 +63,12 @@ window.onload = function() {
             isDrawingMode: true
         });
         fab.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 150, left: 150, opacity: 0.7 }));
+       
         fab.renderAll();
 
 		fab.freeDrawingBrush = new fabric['PencilBrush'](fab);
-      
+      	 fab.freeDrawingBrush.width = 10;
+      	 fab.freeDrawingBrush.color = "#99cc00";
        // fab.freeDrawingBrush = new fabric.PencilBrush(fab);
 
 
@@ -98,12 +93,16 @@ window.onload = function() {
 		buttons.push(createButton(par, "fa fa-paint-brush", function(){
 			fab.isDrawingMode = true;
       		fab.freeDrawingBrush.width = 10;
-
+      		buttons[3].className = "ui-button";
+			buttons[2].className = "ui-button selected"
 		}));
 		//arrows-alt
 		/*leave drawing mode*/
 		buttons.push(createButton(par, "fa fa-arrows", function(){
 			fab.isDrawingMode = false;
+			buttons[2].className = "ui-button";
+			buttons[3].className = "ui-button selected"
+
 		}));
 
 		/*move to trash*/
@@ -114,6 +113,8 @@ window.onload = function() {
 				f.remove();
 			}
 		}));
+
+		buttons[2].className = "ui-button selected"
 	}
 
 	function createButton(parent, c, callback){
@@ -164,21 +165,15 @@ window.onload = function() {
 					
 					
 					ctx.drawImage(drawCanvas, coord[0], coord[1], coord[2], coord[3]);
-					// Display glasses overlay: 
-					// glasses.style.left    = ~~(coord[0] + coord[2] * 1.0/8 + video.offsetLeft) + 'px';
-					// glasses.style.top     = ~~(coord[1] + coord[3] * 0.8/8 + video.offsetTop) + 'px';
-					// glasses.style.width   = ~~(coord[2] * 6/8) + 'px';
-					// glasses.style.height  = ~~(coord[3] * 6/8) + 'px';
+					
 
-
-					glasses.style.opacity = 1;
+					
 
 					drawFace(coord);
 
 					
 				} else {
-					var opacity = glasses.style.opacity - 0.2;
-					glasses.style.opacity = opacity > 0 ? opacity : 0;
+					
 
 					clearFace();
 				}
