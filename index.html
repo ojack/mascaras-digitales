@@ -19,17 +19,19 @@
 </head>
 
 <body>
-	<h1>MASCARAS DIGITALES</h1>
+	
 
 	<video id="video" autoplay style="float: left; margin-right: 1em;"></video>
 	
 	<canvas id="c"></canvas>
 	<canvas id="vidCanvas" width="640px" height="480px"></canvas>
-	
+	<div id ="open-button" class = "ui-button"> <i class="fa fa-pencil" aria-hidden="true"></i></div>
 	<div id="create">
+		<div id ="close-button" class = "ui-button"> <i class="fa fa-times" aria-hidden="true"></i></div>
+		<div id = "drawHolder">
 		<canvas id="face" width="600px" height="600px"></canvas>
 		<canvas id="fabric" width="600px" height="600px"></canvas>
-		<canvas id="hand" class="hidden" width="600px" height="600px"></canvas>
+		</div>
 		<div id="ui">
 			<input name="color2" type="hidden" id="color_value" value="99cc00" onchange="update(this)">
 			 <div class="ui-button">

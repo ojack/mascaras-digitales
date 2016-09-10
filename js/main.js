@@ -5,7 +5,21 @@ var colors = ["#00f"];
 var col = "#99cc00";
 var colorIndex = 0;
 
+window.onresize = function(event) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+};
+
 window.onload = function() {
+		document.getElementById("close-button").onclick = function(){
+			
+			document.getElementById("create").className = "hidden";
+		};
+
+		document.getElementById("open-button").onclick = function(){
+			
+			document.getElementById("create").className = "";
+		};
 		buttons = [];
 		smoother = new Smoother([0.9999999, 0.9999999, 0.999, 0.999], [0, 0, 0, 0]);
 		video = document.getElementById('video');
@@ -66,19 +80,19 @@ window.onload = function() {
 		drawFab = new fabric.Canvas('fabric', {
             isDrawingMode: true
         });
-        drawFab.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 150, left: 150, opacity: 0.7 }));
+       // drawFab.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 150, left: 150, opacity: 0.7 }));
        
-        drawFab.renderAll();
+        //drawFab.renderAll();
 
         fab = drawFab;
-        handCanvas = document.getElementById('hand');
+      //  handCanvas = document.getElementById('hand');
 
-        handFab = new fabric.Canvas('hand', {
-            isDrawingMode: true
-        });
+     //    handFab = new fabric.Canvas('hand', {
+     //        isDrawingMode: true
+     //    });
         
-       handFab.add(new fabric.Circle({ radius: 30, fill: '#155', top: 280, left: 150, opacity: 0.7 }));
-     handFab.renderAll();
+     //   handFab.add(new fabric.Circle({ radius: 30, fill: '#155', top: 280, left: 150, opacity: 0.7 }));
+     // handFab.renderAll();
 
 		fab.freeDrawingBrush = new fabric['PencilBrush'](fab);
       	 fab.freeDrawingBrush.width = 10;
@@ -165,16 +179,16 @@ window.onload = function() {
 		      		var width = ~~(SCALE_HEIGHT * video.videoWidth / video.videoHeight); //~~removes anything to right of decimal
 					var height  =SCALE_HEIGHT;
 		      		detector = new objectdetect.detector(width, height, 1.1, objectdetect.frontalface);
-		      		hand = new objectdetect.detector(width, height, 1.1, objectdetect.handfist);
+		      		//hand = new objectdetect.detector(width, height, 1.1, objectdetect.handfist);
 		      	}
           		
           		vidCtx.drawImage(video, 0, 0, vidCanvas.width, vidCanvas.height);
           		// Perform the actual detection:
 				var coords = detector.detect(video, 1);
-				var handCoords = hand.detect(video, 1);
+				//var handCoords = hand.detect(video, 1);
 
 				ctx.drawImage(vidCanvas, 0, 0, canvas.width, canvas.height);
-				
+
 				if (coords[0]) {
 					//console.log("drawing face");
 					var coord = coords[0];
@@ -198,14 +212,14 @@ window.onload = function() {
 					
 					
 
-					if(handCoords[0]){
-						console.log("hand");
-						fab = handFab;
-						ctx.drawImage(handCanvas, canvCoord[0], canvCoord[1], canvCoord[2], canvCoord[3]);
-					} else {
+					// if(handCoords[0]){
+					// 	console.log("hand");
+					// 	fab = handFab;
+					// 	ctx.drawImage(handCanvas, canvCoord[0], canvCoord[1], canvCoord[2], canvCoord[3]);
+					// } else {
 						fab = drawFab;
 						ctx.drawImage(drawCanvas, canvCoord[0], canvCoord[1], canvCoord[2], canvCoord[3]);
-					}
+					//}
 					
 					
 
