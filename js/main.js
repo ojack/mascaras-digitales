@@ -8,7 +8,7 @@ window.onload = function() {
 
 		getVideo();
 		createCanvas();
-		
+		createUI();
 
 	
 		
@@ -55,6 +55,20 @@ window.onload = function() {
         fab.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 150, left: 150 }));
         fab.renderAll();
 
+	}
+
+	function createUI(){
+		var par = document.getElementById("ui");
+		createButton(par);
+	}
+
+	function createButton(parent){
+		var d = document.createElement('div');
+		d.className = "ui-button";
+		parent.appendChild(d);
+		d.onclick = function(){
+			alert("dddd");
+		}
 	}
 
 	function drawFace(coords){
