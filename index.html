@@ -11,7 +11,8 @@
 	
 	<script src="js/lib/objectdetect.js"></script>
 	<script src="js/lib/objectdetect.frontalface.js"></script>
-	<script src="js/lib/objectdetect.mouth.js"></script>
+	<script src="js/lib/objectdetect.handopen.js"></script>
+	<script src="js/lib/objectdetect.handfist.js"></script>
 	<script src="js/lib/objectdetect.eye.js"></script>
 	<script src="js/lib/fabric.js"></script>
 	<script src="js/main.js"></script>
@@ -23,11 +24,12 @@
 	<video id="video" autoplay style="float: left; margin-right: 1em;"></video>
 	
 	<canvas id="c"></canvas>
-	
+	<canvas id="vidCanvas" width="640px" height="480px"></canvas>
 	
 	<div id="create">
-		<canvas id="face" width="800px" height="800px"></canvas>
-		<canvas id="fabric" width="800px" height="800px"></canvas>
+		<canvas id="face" width="600px" height="600px"></canvas>
+		<canvas id="fabric" width="600px" height="600px"></canvas>
+		<canvas id="hand" class="hidden" width="600px" height="600px"></canvas>
 		<div id="ui">
 			<input name="color2" type="hidden" id="color_value" value="99cc00" onchange="update(this)">
 			 <div class="ui-button">

@@ -12,6 +12,10 @@
 	height: 100%;
 }
 
+.hidden{
+	display: none;
+}
+
 .jscolor{
 	width: 40px;
 	height: 40px;
