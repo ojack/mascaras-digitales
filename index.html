@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>MASCARAS DIGITALES</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="js/lib/compatibility.js"></script>
+	<script src="js/lib/smoother.js"></script>
+	
+	<script src="js/lib/objectdetect.js"></script>
+	<script src="js/lib/objectdetect.frontalface.js"></script>
+	<script src="js/lib/objectdetect.mouth.js"></script>
+	<script src="js/lib/objectdetect.eye.js"></script>
+	<script src="js/lib/fabric.js"></script>
+	<script src="js/main.js"></script>
+</head>
+
+<body>
+	<h1>MASCARAS DIGITALES</h1>
+	
+	<video id="video" autoplay style="float: left; margin-right: 1em;"></video>
+	<div id="list">
+		<img src="img/sunglasses_0.png" style="width: 117px;">
+		<img src="img/sunglasses_1.png" style="width: 117px;">
+		<img src="img/sunglasses_2.png" style="width: 117px;">
+		<img src="img/sunglasses_3.png" style="width: 117px;">
+		<img src="img/sunglasses_4.png" style="width: 117px;">
+		<img src="img/sunglasses_5.png" style="width: 117px;">
+		<img src="img/sunglasses_6.png" style="width: 117px;">
+		<img src="img/sunglasses_7.png" style="width: 117px;">
+	</div>
+	<canvas id="c"></canvas>
+	<img id="glasses" src="img/sunglasses_0.png" style="position: absolute; display: block; opacity: 0">
+	
+	<div id="create">
+		<canvas id="face" width="800px" height="800px"></canvas>
+		<canvas id="fabric" width="800px" height="800px"></canvas>
+
+	</div>
+</body>
+</html>
