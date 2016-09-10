@@ -1,12 +1,12 @@
-var canvas, smoother, glasses, video, detector, ctx, fab, drawCanvas, brush, faceCanvas, fabricCanvas, faceCtx;
-var SCALE_HEIGHT = 100;
+var canvas, smoother, glasses, video, detector, ctx, fab, drawCanvas, buttons, brush, faceCanvas, fabricCanvas, faceCtx;
+var SCALE_HEIGHT = 60;
 
 var colors = ["#00f"];
 var col = "#f00";
 var colorIndex = 0;
 
 window.onload = function() {
-	
+		buttons = [];
 		smoother = new Smoother([0.9999999, 0.9999999, 0.999, 0.999], [0, 0, 0, 0]);
 		video = document.getElementById('video');
 		glasses = document.getElementById('glasses');
@@ -67,7 +67,7 @@ window.onload = function() {
 		drawCanvas = document.getElementById('fabric');
 
 		fab = new fabric.Canvas('fabric', {
-            isDrawingMode: false
+            isDrawingMode: true
         });
         fab.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 150, left: 150, opacity: 0.7 }));
         fab.renderAll();
@@ -82,45 +82,47 @@ window.onload = function() {
 	function createUI(){
 		var par = document.getElementById("ui");
 		/*draw circle*/
-		createButton(par, function(){
+		buttons.push(createButton(par, "fa fa-circle", function(){
 			fab.isDrawingMode = false;
 			fab.add(new fabric.Circle({ radius: 50, fill: col, top: 300, left: 300 }));
-		});
+		}));
 
 		/*draw rect*/
-		createButton(par, function(){
+		buttons.push(createButton(par, "fa fa-square", function(){
 			fab.isDrawingMode = false;
 			fab.add(new fabric.Rect({ width: 60, height: 70, fill: col, top: 300, left: 300 }));
-		});
+		}));
 
 		
 		/*set drawing mode*/
-		createButton(par, function(){
+		buttons.push(createButton(par, "fa fa-paint-brush", function(){
 			fab.isDrawingMode = true;
       		fab.freeDrawingBrush.width = 10;
 
-		});
-
+		}));
+		//arrows-alt
 		/*leave drawing mode*/
-		createButton(par, function(){
+		buttons.push(createButton(par, "fa fa-arrows", function(){
 			fab.isDrawingMode = false;
-		});
+		}));
 
 		/*move to trash*/
-		createButton(par, function(){
+		buttons.push(createButton(par, "fa fa-trash", function(){
 			fab.isDrawingMode = false;
 			var f = fab.getActiveObject();
 			if(f){
 				f.remove();
 			}
-		});
+		}));
 	}
 
-	function createButton(parent, callback){
+	function createButton(parent, c, callback){
 		var d = document.createElement('div');
 		d.className = "ui-button";
+		d.innerHTML = '<i class="'+c+'""></i>';
 		parent.appendChild(d);
 		d.onclick = callback;
+		return d;
 	}
 
 	function drawFace(coords){
