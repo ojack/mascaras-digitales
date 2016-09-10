@@ -2,7 +2,7 @@ var canvas, smoother, glasses, video, detector, ctx, fab, drawCanvas, brush, fac
 var SCALE_HEIGHT = 100;
 
 var colors = ["#00f"];
-
+var col = "#f00";
 var colorIndex = 0;
 
 window.onload = function() {
@@ -25,7 +25,19 @@ window.onload = function() {
 		});
 	};
 
+	function update(jscolor) {
+    // 'jscolor' instance can be used as a string
+   console.log(jscolor.value);
+   col = "#"+jscolor.value;
+   var f = fab.getActiveObject();
+   fab.freeDrawingBrush.color = col;
+			if(f){
+				console.log(f);
+				f.set("fill", col);
+				fab.renderAll();
+			}
 
+}
 
 	function getVideo(){
 		try {
@@ -60,7 +72,8 @@ window.onload = function() {
         fab.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 150, left: 150, opacity: 0.7 }));
         fab.renderAll();
 
-        console.log(fabric);
+		fab.freeDrawingBrush = new fabric['PencilBrush'](fab);
+      
        // fab.freeDrawingBrush = new fabric.PencilBrush(fab);
 
 
@@ -71,37 +84,29 @@ window.onload = function() {
 		/*draw circle*/
 		createButton(par, function(){
 			fab.isDrawingMode = false;
-			fab.add(new fabric.Circle({ radius: 50, fill: colors[colorIndex], top: 300, left: 300 }));
+			fab.add(new fabric.Circle({ radius: 50, fill: col, top: 300, left: 300 }));
 		});
 
 		/*draw rect*/
 		createButton(par, function(){
 			fab.isDrawingMode = false;
-			fab.add(new fabric.Rect({ width: 60, height: 70, fill: colors[colorIndex], top: 300, left: 300 }));
+			fab.add(new fabric.Rect({ width: 60, height: 70, fill: col, top: 300, left: 300 }));
 		});
 
-		createButton(par, function(){
-			var f = fab.getActiveObject();
-			if(f){
-				console.log(f);
-				f.set("fill", colors[colorIndex]);
-				fab.renderAll();
-			}
-		});
-
+		
+		/*set drawing mode*/
 		createButton(par, function(){
 			fab.isDrawingMode = true;
-			console.log(fab);
-			fab.freeDrawingBrush = new fabric['PencilBrush'](fab);
-			fab.freeDrawingBrush.color = colors[colorIndex];
       		fab.freeDrawingBrush.width = 10;
 
 		});
 
+		/*leave drawing mode*/
 		createButton(par, function(){
 			fab.isDrawingMode = false;
 		});
 
+		/*move to trash*/
 		createButton(par, function(){
 			fab.isDrawingMode = false;
 			var f = fab.getActiveObject();
@@ -136,7 +141,7 @@ window.onload = function() {
 	          	if (!detector) {
 		      		var width = ~~(SCALE_HEIGHT * video.videoWidth / video.videoHeight); //~~removes anything to right of decimal
 					var height  =SCALE_HEIGHT;
-		      		detector = new objectdetect.detector(width, height, 1.8, objectdetect.frontalface);
+		      		detector = new objectdetect.detector(width, height, 1.1, objectdetect.frontalface);
 		      	}
           		
           		// Perform the actual detection:

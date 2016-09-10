@@ -3,8 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<title>MASCARAS DIGITALES</title>
+	<link rel="stylesheet" href="font-awesome/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="js/lib/compatibility.js"></script>
+	<script src="js/lib/jscolor.min.js"></script>
 	<script src="js/lib/smoother.js"></script>
 	
 	<script src="js/lib/objectdetect.js"></script>
@@ -35,7 +37,10 @@
 	<div id="create">
 		<canvas id="face" width="800px" height="800px"></canvas>
 		<canvas id="fabric" width="800px" height="800px"></canvas>
-		<div id="ui"></div>
+		<div id="ui">
+			<input name="color2" type="hidden" id="color_value" value="99cc00" onchange="update(this)">
+			 <button class="ui-button jscolor {valueElement: 'color_value'}" ></button>
+		</div>
 	</div>
 </body>
 </html>
